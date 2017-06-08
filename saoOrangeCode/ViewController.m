@@ -7,22 +7,41 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController ()
 
+#import "SDScanView.h"
+
+
+
+@interface ViewController ()<SDScanViewDelegate>
+{
+    
+}
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    SDScanView *scanview = [[SDScanView alloc] init];
+    scanview.delegate = self;
+    [self.view addSubview:scanview];
+
+    
+    
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)SDScanViewOutputMetadataObjects:(NSArray *)metadataObjs{
+    //
+    AVMetadataMachineReadableCodeObject *obj = [metadataObjs objectAtIndex:0];
+    NSLog(@"码数据:%@",obj.stringValue);
+    NSLog(@"码类型:%@",obj.type);
+    
+    
 }
 
 
